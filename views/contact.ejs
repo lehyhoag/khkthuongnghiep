@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Contact</title>
+    <style>
+      *{
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+      @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+
+      body{
+        background: url(contact2.jpg);
+        background-repeat: no-repeat; 
+
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .container {
+          text-align: center;
+      }
+     .container1{
+          height: 75%;
+          width: 70%;
+          padding: 10px;
+          border-radius: 0;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%,-50%);
+      }
+      .row{
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.8) 0px 3px 7px -3px;
+        
+      }
+      .col-md-7{
+          padding: 20px;
+      }
+      .col-md-5{
+          background:rgb(198,136,235);
+          padding: 20px;
+          color: white;
+
+      }
+      .form-control {
+          height: auto;
+          background: transparent;
+          color: #000;
+          font-size: 14px;
+          border: none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 0;
+          -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+          padding: 5px 0;
+          transition: border-color 0.3s ease, padding 0.3s ease;
+      }
+
+      .form-control:focus {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 20px;
+        background-color: transparent; /* Make the background transparent */
+        border: none; /* Remove the border */
+        border-bottom: 2px solid #007bff; /* Add a 2px blue underline */
+        outline: none; /* Remove the default focus outline */
+      }
+
+      .bi{
+          font-size: 20px;
+      }
+      .d-flex p{
+          font-size: 18px;
+          padding-left: 10px;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navbar {
+          background-color: #fff;
+          padding: 7px; /* Add padding for better spacing */
+          margin-bottom: 0; /* Make the background transparent */
+      }
+
+      .navbar-collapse {
+          justify-content: flex-end; /* Align the navbar to the right */
+      }
+
+      .navbar a{
+        position: relative;
+        font-size: 16px;
+        color: #000000;
+        margin-right: 30px;
+        text-decoration: none;
+      }
+      .navbar a::after{
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #000000;
+        bottom: -5px;
+        border-radius: 5px;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: .5s ease;
+      }
+      .navbar a:hover:after{
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .btn{
+          color:#fff;
+          background:rgb(108,126,226);
+          box-shadow: 0 5px 10px rgba(0,0,0,.3);
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      .btn:hover{
+          background:rgb(146,185,228);
+      }
+
+      .btn:active{
+          transform:scale(.90);
+      }
+
+      #button{
+          font-size: 20px;
+          align-content: center;
+          height:50px;
+          width: 200px;
+      }
+
+      .popup-container{
+          position: fixed;
+          top:-120%; left:0;
+          z-index: 1000;
+          background:rgba(0,0,0,.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height:100%;
+          width:100%;
+      }
+
+      .popup-container.toggle{
+          top:0%;
+      }
+
+      .popup-container .popup{
+          background:#fff;
+          text-align: center;
+          margin:10px;
+          padding:10px;
+          box-shadow: 0 5px 10px rgba(0,0,0,.5);
+          border-radius: 5px;
+          position: relative;
+      }
+
+      .popup-container .popup h3{
+          color:#444;
+          padding:20px 40px;
+          font-size: 25px;
+      }
+
+      .popup-container .popup .btn{
+          margin:30px;
+          font-size: 20px;
+          height:40px;
+          width: 150px;
+      }
+
+      .popup-container .popup input[type="radio"]{
+          display: none;
+      }
+
+      .popup-container .popup .icons{
+          padding:10px;
+      }
+
+      .popup-container .popup .icons label{
+          font-size: 50px;
+          cursor: pointer;
+          opacity: .4;
+      }
+
+      .popup-container .popup .icons:hover label{
+          opacity: .2;
+      }
+
+
+      .popup-container .popup #btn1:checked ~ .icons label:nth-child(1),
+      .popup-container .popup #btn2:checked ~ .icons label:nth-child(2),
+      .popup-container .popup #btn3:checked ~ .icons label:nth-child(3),
+      .popup-container .popup #btn4:checked ~ .icons label:nth-child(4),
+      .popup-container .popup #btn5:checked ~ .icons label:nth-child(5),
+      .popup-container .popup .icons label:hover{
+          opacity: 1;
+          font-size: 60px;
+      }
+
+      .popup-container .popup #close{
+          position: absolute;
+          top:-15px; right:-15px;
+          border-radius: 50%;
+          border:4px solid rgb(146,185,228);
+          height:40px;
+          width:40px;
+          line-height: 35px;
+          cursor: pointer;
+          background:#333;
+          color:#fff;
+          font-size: 20px;
+      }
+
+      .popup-container .popup #close:hover{
+          transform: rotate(90deg);
+      }
+
+      .form-control.invalid {
+          border: none; /* Remove the regular border */
+          border-bottom: 2px solid #ff0000; /* Add a red underline instead */
+          background-color: rgba(255, 0, 0, 0.1); /* Optional: Add a background color to highlight the invalid answer */
+      }
+    </style>
+  </head>
+  <body>
+
+  
+    <div class="container1">
+        <div class="row">
+            <div class="col-md-7">
+              <h4>Phản hồi</h4>
+
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Họ và tên</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Tên của bạn...">
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email của bạn...">
+                  </div>
+                  <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Liên lạc</label>
+                    <input type="text" class="form-control" id="number" name="number" placeholder="Số điện thoại của bạn" >
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Lời nhắn</label>
+                    <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                  </div>
+
+                  <button type="button" onclick="submitForm()" class="btn btn-primary">Gửi</button>
+              </form>
+            </div>
+            <div class="col-md-5 ">
+              <h4>Liên hệ với chúng tôi</h4><hr>
+              <div class="mt-4">
+                  <div class="d-flex">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <p >Địa chỉ: Hướng Hóa, Quảng Trị</p>
+                  </div><hr>
+                  <div class="d-flex">
+                    <i class="bi bi-telephone-fill"></i>
+                    <p>Liên lạc: +84948119313</p>
+                  </div><hr>
+                  <div class="d-flex">
+                    <i class="bi bi-envelope-fill"></i>
+                    <p>Email: huongnghiepchatgpt@gmail.com</p>
+                  </div><hr>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup-container">
+      <div class="popup">  
+          <h3>Bạn cảm thấy thế nào </h3>
+  
+          <input type="radio" name="buttons" id="btn1">
+          <input type="radio" name="buttons" id="btn2">
+          <input type="radio" name="buttons" id="btn3">
+          <input type="radio" name="buttons" id="btn4">
+          <input type="radio" name="buttons" id="btn5">
+  
+          <div class="icons">
+              <label for="btn1">🙁</label>
+              <label for="btn2">😐</label>
+              <label for="btn3">😊</label>
+              <label for="btn4">😀</label>
+              <label for="btn5">😍</label>
+          </div>
+  
+          <button type="submit" class="btn" onclick="sendReviewEmail()">Đánh giá</button>
+  
+          <div onclick="toggle()" id="close">✖</div>
+  
+      </div>
+    
+    </div>
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <div class="container">
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Trang Chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">Tổng Quan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna">Q&A</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Liên Hệ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Trang trường</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </div>
+    <script>
+      let feeling = '';
+      function isValidEmail(email) {
+        // Simple email validation, you can use a more sophisticated method
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function submitForm() {
+        const fullNameInput = document.getElementById('fullName');
+        const emailInput = document.getElementById('email');
+        const numberInput = document.getElementById('number');
+        const messageInput = document.getElementById('message');
+
+        if (fullNameInput.value.trim() === '') {
+            fullNameInput.classList.add('invalid');
+        } else {
+            fullNameInput.classList.remove('invalid');
+        }
+
+        if (!isValidEmail(emailInput.value)) {
+            emailInput.classList.add('invalid');
+        } else {
+            emailInput.classList.remove('invalid');
+        }
+
+        // Check number
+        if (numberInput.value.trim() === '' || isNaN(numberInput.value)) {
+            numberInput.classList.add('invalid');
+        } else {
+            numberInput.classList.remove('invalid');
+        }
+
+        if (messageInput.value.trim() === '') {
+            messageInput.classList.add('invalid');
+        } else {
+            messageInput.classList.remove('invalid');
+        }
+
+        if (
+            !fullNameInput.classList.contains('invalid') &&
+            !emailInput.classList.contains('invalid') &&
+            !numberInput.classList.contains('invalid') &&
+            !messageInput.classList.contains('invalid')
+        ) {
+            togglePopup();
+        }
+      }
+        
+      function togglePopup() {
+        let popupContainer = document.querySelector('.popup-container');
+        popupContainer.classList.toggle('toggle');
+      }
+    
+      function toggle() {
+        let toggle = document.querySelector('.popup-container');
+        toggle.classList.toggle('toggle');
+      }
+    
+      function sendReviewEmail() {
+        // Collect input values directly
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const number = document.getElementById('number').value;
+        const message = document.getElementById('message').value;
+        const btn1 = document.getElementById('btn1');
+        const btn2 = document.getElementById('btn2');
+        const btn3 = document.getElementById('btn3');
+        const btn4 = document.getElementById('btn4');
+        const btn5 = document.getElementById('btn5');
+
+        if (!(btn1.checked || btn2.checked || btn3.checked || btn4.checked || btn5.checked)) {
+          alert("Hãy cho chúng tôi biết cảm xúc của bạn như thế nào.");
+          return; // Stop execution if no radio button is checked
+        }
+
+
+        if (btn1.checked) {
+          feeling = 'Tệ';
+        } else if (btn2.checked) {
+          feeling = 'Bình thường';
+        } else if (btn3.checked) {
+          feeling = 'Thích';
+        } else if (btn4.checked) {
+          feeling = 'Rất thích';
+        } else if (btn5.checked) {
+          feeling = 'Rất mê';
+        }
+
+        const data = {
+          feeling,
+          fullName,
+          email,
+          number,
+          message,
+        };
+
+        // Make a POST request to the server
+        fetch('/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Server response:', result);
+            alert("Gửi đánh giá thành công")
+            window.location.href = '/contact'
+          })
+          .catch(error => {
+            console.error('Error sending data to server:', error);
+          });
+        }
+
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

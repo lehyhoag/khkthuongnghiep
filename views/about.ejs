@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About</title>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <style>
+    body {
+      position: relative;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navbar {
+          background-color: #fff;
+          padding: 7px; /* Add padding for better spacing */
+          margin-bottom: 0; /* Make the background transparent */
+      }
+
+      .navbar-collapse {
+          justify-content: flex-end; /* Align the navbar to the right */
+      }
+
+      .navbar a{
+        position: relative;
+        font-size: 16px;
+        color: #000000;
+        margin-right: 30px;
+        text-decoration: none;
+      }
+      .navbar a::after{
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #000000;
+        bottom: -5px;
+        border-radius: 5px;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: .5s ease;
+      }
+      .navbar a:hover:after{
+        transform: translateY(0);
+        opacity: 1;
+      }
+    .line {
+      height: 8px;
+      background-color: black;
+      position: absolute;
+      cursor: pointer;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4%;
+      border-radius: 20px;
+      z-index: 2;
+      opacity: 0.5; /* Set the default opacity for unselected lines */
+      transition: opacity 0.5s ease;
+    }
+
+    .line.selected {
+      background-color: white;
+      opacity: 1; /* Set the opacity for the selected line */
+    }
+
+    #line1 { bottom: 10%; left: 40%; }
+    #line2 { bottom: 10%; left: 45%; }
+    #line3 { bottom: 10%; left: 50%; }
+    #line4 { bottom: 10%; left: 55%; }
+    #line5 { bottom: 10%; left: 60%; }
+
+
+
+    .model-container {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: rgba(76,155,160);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      animation: none;
+    }
+
+    .model-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .text-overlay1 {
+      position: absolute;
+      top: 35%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: bold;
+      text-align: left;
+      max-height: 70%;
+      max-width: 40%;
+      overflow-y: auto;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adjust the shadow properties as needed */
+
+    }
+
+    .text-overlay1 h3 {
+      font-size: 30px;
+      color: #131313;
+      margin-bottom: 15px;
+    }
+    .text-overlay2 {
+      position: absolute;
+      top: 40%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: right;
+      max-height: 70%;
+      max-width: 70%;
+      overflow-y: auto;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adjust the shadow properties as needed */
+
+    }
+
+    .text-overlay2 h3 {
+      font-size: 30px;
+      color: #131313;
+      margin-bottom: 15px;
+    }
+    .text-overlay3 {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: right;
+      max-height: 70%;
+      max-width: 90%;
+      overflow-y: auto;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Adjust the shadow properties as needed */
+    }
+    .text-overlay1,
+    .text-overlay2,
+    .text-overlay3 {
+      display: none; /* Initially hide text overlays on all screen sizes */
+    }
+
+    @media (min-width: 768px) {
+      /* Show text overlays on screens with a width of 768 pixels or more */
+      .text-overlay1,
+      .text-overlay2,
+      .text-overlay3 {
+        display: block;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+
+  <div id="line1" class="line" onclick="showModel('model1', this)"></div>
+  <div id="line2" class="line" onclick="showModel('model2', this)"></div>
+  <div id="line3" class="line" onclick="showModel('model3', this)"></div>
+  <div id="line4" class="line" onclick="showModel('model4', this)"></div>
+  <div id="line5" class="line" onclick="showModel('model5', this)"></div>
+
+  <div id="model1" class="model-container">
+    <!-- Nội dung model 1 -->
+    <img src="chungtoi.jpg" alt="Image 1">
+    <div class="text-overlay1">
+      <h3>Chúng tôi là?</h3>
+      <p>Trang chúng tôi sử dụng ChatGPT, một hệ thống trí tuệ nhân tạo, như một công cụ hỗ trợ giảng dạy và tư vấn hướng nghiệp trong môn học hướng nghiệp ở cấp bậc THPT.</p>
+    </div>
+  </div>
+
+  <div id="model2" class="model-container">
+    <!-- Nội dung model 2 -->
+    <img src="quta.jpg" alt="Image 2">
+    <div class="text-overlay1">
+      <h3>Tại sao chúng tôi?</h3>
+      <p>Môn học hướng nghiệp ở cấp bậc Trung Học Phổ Thông (THPT) đóng vai trò quan trọng trong việc giúp học sinh hiểu rõ về bản thân, tìm hiểu về các lĩnh vực nghề nghiệp, và xây dựng kế hoạch hướng nghiệp.</p>
+    </div>
+  </div>
+
+  <div id="model3" class="model-container">
+    <!-- Nội dung model 3 -->
+    <img src="a1.jpg" alt="Image 3">
+    <div class="text-overlay2">
+      <h3>Bằng cách nào chúng tôi?</h3>
+      <p>Xây dựng một chatbox để tư vấn nghề nghiệp dựa trên dữ liệu từ các câu hỏi được nghiên cứu rõ ràng và khoa học. </p>
+    </div>
+  </div>
+
+  <div id="model4" class="model-container">
+    <!-- Nội dung model 4 -->
+    <img src="thanhqua.jpg" alt="Image 4">
+    <div class="text-overlay2">
+      <h3>Chúng tôi sẽ?</h3>
+      <p>Chúng tôi sẽ tư vấn hướng nghiệp cho học sinh bằng cách sử dụng trí tuệ nhân tạo nhằm giúp học sinh tìm hiểu về bản thân và thế giới nghề nghiệp một cách hiệu quả hơn, tiết kiệm thời gian và chi phí.</p>
+    </div>
+  </div>
+
+  <div id="model5" class="model-container">
+    <!-- Nội dung model 5 -->
+    <img src="cuoicung.jpg" alt="Image 5">
+    <div class="text-overlay3">
+      <p>Hãy bắt đầu xem thử bạn phù hợp với ngành nghề gì.</p>
+    </div>   
+  </div>
+  <div class="d-flex h-100 text-center text-white bg-white">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <div class="container">
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Trang Chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">Tổng Quan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/qna">Q&A</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Liên Hệ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Trang trường</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Select the first line by default
+      showModel('model1', document.getElementById('line1'));
+    });
+  
+    function showModel(modelId, clickedLine) {
+      // Ẩn tất cả các model
+      document.querySelectorAll('.model-container').forEach(function(model) {
+        model.style.display = 'none';
+      });
+  
+      // Loại bỏ lớp 'selected' từ tất cả các đoạn
+      document.querySelectorAll('.line').forEach(function(line) {
+        line.classList.remove('selected');
+      });
+  
+      // Hiển thị model được chọn với hiệu ứng slideIn
+      const selectedModel = document.getElementById(modelId);
+      selectedModel.style.display = 'block';
+      selectedModel.style.opacity = 0; // Set initial opacity to 0
+      animateModel(selectedModel);
+  
+      // Thêm lớp 'selected' cho đoạn được chọn
+      clickedLine.classList.add('selected');
+    }
+  
+    function animateModel(model) {
+      model.style.transition = 'opacity 0.5s ease';
+      model.style.opacity = 0.8; // Set opacity to 0 initially
+      setTimeout(function() {
+        model.style.opacity = 1; // Set opacity to 1 after a short delay
+      }, 50); // Adjust the delay (in milliseconds) as needed
+    }
+
+  </script>
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
