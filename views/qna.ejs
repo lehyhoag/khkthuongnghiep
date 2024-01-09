@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" class="h-100">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 
 
     <style>
@@ -93,12 +95,13 @@
       }
       .navbar {
           background-color: #fff;
-          padding: 7px; /* Add padding for better spacing */
-          margin-bottom: 0; /* Make the background transparent */
+          padding: 7px;
+          margin-bottom: 0; 
+          z-index: 1000;
       }
 
       .navbar-collapse {
-          justify-content: flex-end; /* Align the navbar to the right */
+          justify-content: flex-end; 
       }
 
       .navbar a{
@@ -138,6 +141,7 @@
           padding: 20px;
           border-radius: 10px;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          position: absolute;
       }
 
       #questionBox {
@@ -219,7 +223,7 @@
           right: 50%;
           background-color: rgba(255, 255, 255, 0.5);
           padding: 20px;
-          border-radius: 0 0 10px 0; /* Adjust border-radius as needed */
+          border-radius: 0 0 10px 0; 
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           text-align: left;
       }
@@ -236,14 +240,17 @@
 
     </style>
 
-    <!-- Custom styles for this template -->
-  </head>
+
+</html>
   <body>
     <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
               <nav class="navbar navbar-expand-md navbar-light bg-light">
                 <div class="container">
+                    <a class="navbar-brand" href="/">
+                        <img src="logo.png" alt="Logo" width="30" height="30">
+                    </a>
                     <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -263,15 +270,16 @@
                                 <a class="nav-link" href="/contact">Liên Hệ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Trang trường</a>
+                                <a class="nav-link" href="https://thptthuonghoa.quangtri.edu.vn" target="_blank">Trang trường</a>
                             </li>
                         </ul>
                     </div>
                 </div>
               </nav>
             </div>
-          </header>
+        </header>
     </div>
+
         <div class="container">
           <button id="startButton" onclick="showQuestion()"><strong>Start</strong></button>
           <div id="questionContainer" class="hidden">
@@ -285,9 +293,7 @@
                   </button>
                   <button id="nextButton" onclick="nextQuestion()">
                     <ion-icon name="caret-forward-sharp"></ion-icon>
-                  </button>
-                  
-
+                  </button>                  
                   
                   <button id="submitButton" onclick="submitQuestions()">Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></button>
               </div>
@@ -299,7 +305,6 @@
           <h3>Server's Answer:</h3>
           <p id="serverAnswer"></p>
         </div>
-      
 
     </div>
       <script>
@@ -316,7 +321,6 @@
             { id: "question9", text: "9. Nếu bạn có cơ hội lựa chọn thêm nghề nghiệp, bạn muốn thử sức  trong lĩnh vực nào" },
             { id: "question10", text: "10. Bạn có bất kỳ câu hỏi hoặc thông tin nào bạn muốn chia sẻ về việc định hướng nghề nghiệp của bạn không?" },
 
-            // Add more questions as needed
         ];
 
       
@@ -330,38 +334,31 @@
         }
       
         document.getElementById('answer').addEventListener('click', function() {
-    // Remove the 'invalid-answer' class when the input is clicked
             this.classList.remove('invalid-answer');
         });
 
         function nextQuestion() {
         var currentAnswer = document.getElementById('answer').value;
 
-        // Check if the current question is answered
         if (!currentAnswer) {
-            // Add a class to highlight the input box with a red border
             document.getElementById('answer').classList.add('invalid-answer');
-            return; // Stop progressing to the next question
+            return; 
         } else {
-            // Remove the class if the answer is provided
             document.getElementById('answer').classList.remove('invalid-answer');
         }
 
-        // Additional validation for the first question (assuming it's an email)
+
         if (currentQuestionIndex === 0) {
             var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (!emailRegex.test(currentAnswer)) {
-                // Add a class to highlight the input box with a red border
                 document.getElementById('answer').classList.add('invalid-answer');
-                return; // Stop progressing to the next question
+                return; 
             } else {
-                // Remove the class if the answer is a valid email
                 document.getElementById('answer').classList.remove('invalid-answer');
             }
         }
 
-        // Store the answer in the answers array with the corresponding question index
         answers[currentQuestionIndex] = currentAnswer;
 
         currentQuestionIndex++;
@@ -376,7 +373,7 @@
         } else {
             document.getElementById('questionContainer').style.display = 'none';
             console.log("Answers:", answers);
-            // Hiển thị câu trả lời cho người dùng (có thể thêm phần này)
+            // Hiển thị câu trả lời cho người dùng 
         }
     }
      
@@ -390,69 +387,68 @@
         }
       
         function displayCurrentQuestion() {
-          var questionLabel = document.getElementById('questionLabel');
-          questionLabel.innerText = questions[currentQuestionIndex].text;
+            var questionLabel = document.getElementById('questionLabel');
+            questionLabel.innerText = questions[currentQuestionIndex].text;
 
-          var currentAnswer = answers[questions[currentQuestionIndex].id] || '';
-          document.getElementById('answer').value = currentAnswer;
+            var currentAnswer = answers[questions[currentQuestionIndex].id] || '';
+            document.getElementById('answer').value = answers[currentQuestionIndex] || '';
 
-          document.getElementById('submitButton').style.display = 'none';
+            document.getElementById('submitButton').style.display = 'none';
 
-          // Show or hide the "Back" button based on the current question index
-          if (currentQuestionIndex === 0) {
-              document.getElementById('prevButton').style.display = 'none';
-          } else {
-              document.getElementById('prevButton').style.display = 'inline-block';
-          }
+            // Show or hide the "Back" button based on the current question index
+            if (currentQuestionIndex === 0) {
+                document.getElementById('prevButton').style.display = 'none';
+            } else {
+                document.getElementById('prevButton').style.display = 'inline-block';
+            }
 
-          // Show or hide the "Next" and "Submit" buttons based on the current question index
-          if (currentQuestionIndex === questions.length - 1) {
-              document.getElementById('nextButton').style.display = 'none';
-              document.getElementById('submitButton').style.display = 'inline-block';
-          } else {
-              document.getElementById('nextButton').style.display = 'inline-block';
-          }
+            // Show or hide the "Next" and "Submit" buttons based on the current question index
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById('nextButton').style.display = 'none';
+                document.getElementById('submitButton').style.display = 'inline-block';
+            } else {
+                document.getElementById('nextButton').style.display = 'inline-block';
+            }
         }
       
         function submitQuestions() {
-          var submitButton = document.getElementById('submitButton');
-          var spinner = submitButton.querySelector('.spinner-border');
-          
+            var submitButton = document.getElementById('submitButton');
+            var spinner = submitButton.querySelector('.spinner-border');
+            
 
-          // Thêm class "loading" để thay đổi giao diện nút và ngăn chặn nhấp nút khi đang xử lý
-          submitButton.classList.add('loading');
-          spinner.classList.add('spinner-border');
-          //
-          answers[currentQuestionIndex] = document.getElementById('answer').value;
+            submitButton.classList.add('loading');
+            spinner.classList.add('spinner-border');
+            //
+            answers[currentQuestionIndex] = document.getElementById('answer').value;
 
-          fetch('/qna', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ answers: answers }),
+            fetch('/qna', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ answers: answers }),
           })
-          .then(response => response.json())
-          .then(data => {
-              if (data && data.answer) {
-                  console.log('Server Response:', data.answer);
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.answer) {
+                    console.log('Server Response:', data.answer);
 
-                  // Hiển thị câu trả lời từ server
-                  document.getElementById('serverAnswer').innerText = data.answer;
-                  document.getElementById('answerContainer').style.display = 'block';
-                  document.getElementById('questionContainer').style.display = 'none'; // Hide the question container
-                  submitButton.classList.remove('loading');
-                  spinner.classList.remove('spinner-border');
-              } else {
-                  console.error('Invalid server response:', data);
-                  submitButton.classList.remove('loading');
-                  spinner.classList.remove('spinner-border');
-              }
-          })
-          .catch((error) => {
-              console.error('Error:', error);
-              window.location.href = '/qna';
-          });
+                    // Hiển thị câu trả lời từ server
+                    document.getElementById('serverAnswer').innerText = data.answer;
+                    document.getElementById('answerContainer').style.display = 'block';
+                    document.getElementById('questionContainer').style.display = 'none'; 
+                    submitButton.classList.remove('loading');
+                    spinner.classList.remove('spinner-border');
+                } else {
+                    console.error('Invalid server response:', data);
+                    submitButton.classList.remove('loading');
+                    spinner.classList.remove('spinner-border');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+
+            });
         }
         function closeAnswerContainer() {
             document.getElementById('answerContainer').style.display = 'none';

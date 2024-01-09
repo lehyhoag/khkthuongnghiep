@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express")
 const app = express()
 const flash = require("express-flash")
@@ -6,6 +7,16 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const path = require('path');
+
+const openaiApiKey = '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';
+
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${openaiApiKey}`,
+};
+
+
 
 app.use(express.static("jpg"));
 app.use(express.urlencoded({extended: false}))
@@ -29,28 +40,25 @@ app.post('/qna', async (req, res) => {
     const submittedAnswers = req.body.answers;
     
     // Tạo câu hỏi từ câu trả lời
-    const question = `Tôi có sở thích "${submittedAnswers[2]}" và kỹ năng "${submittedAnswers[5]}". Tôi hài lòng và tự hào khi ${submittedAnswers['question4']}. Tôi từng muốn mình thử sức với "${submittedAnswers[9]}". Tôi cũng đã tự nhận thấy rằng đặc điểm cá nhân của tôi "${submittedAnswers[6]}", bản thân có xu hướng làm việc với "${submittedAnswers[3]}" và tài chính gia đình ${submittedAnswers[8]} ảnh hưởng tới lựa chọn nghề nghiệp của tôi. Cuối cùng, để giải quyết vấn đề tôi thường ${submittedAnswers[7]}. Dựa trên những thông tin này, các nghề nghiệp phù hợp với tôi là gì? Vì sao? (liệt kê theo dấu gạch ngang)`;
+    const question = `Tôi có sở thích "${submittedAnswers[2]}" và kỹ năng "${submittedAnswers[5]}". Tôi hài lòng và tự hào khi ${submittedAnswers[4]}. Tôi từng muốn mình thử sức với "${submittedAnswers[9]}". Tôi cũng đã tự nhận thấy rằng đặc điểm cá nhân của tôi "${submittedAnswers[6]}", bản thân có xu hướng làm việc với "${submittedAnswers[3]}" và tài chính gia đình ${submittedAnswers[8]} ảnh hưởng tới lựa chọn nghề nghiệp của tôi. Cuối cùng, để giải quyết vấn đề tôi thường ${submittedAnswers[7]}. Dựa trên những thông tin này, các nghề nghiệp phù hợp với tôi là gì? Vì sao? (liệt kê theo dấu gạch ngang)`;
     console.log('cau hoi:', question)
     // Gửi câu hỏi đến ChatGPT
-    const response = await axios.post('https://api.openai.com/v1/engines/text-davinci-003/completions', {
-      prompt: question,
-      max_tokens: 2800,
-    }, {
-      headers: {
-        'Authorization': 'Bearer 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',
-        'Content-Type': 'application/json',
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-3.5-turbo',
+        messages: [{role: 'user', content: `${question}`}],
       },
-    });
+      { headers }
+    );
 
-    const answer = response.data.choices[0].text.trim();
-    
-    // Gửi câu trả lời từ ChatGPT về client
-    res.json({ answer });
+    const answer = response.data.choices[0].message.content;
+  
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'huongnghiepchatgpt@gmail.com', // Email của bạn
-        pass: 'ggwy qaee okkf ipdu'
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       }
     });
 
@@ -66,6 +74,7 @@ app.post('/qna', async (req, res) => {
           console.error('Error sending email:', error);
         } else {
           console.log('Email sent:', info.response);
+          res.json({ answer });
         }
       });
   } catch (error) {
@@ -77,22 +86,21 @@ app.post('/qna', async (req, res) => {
 
 app.post('/contact', async (req, res) => {
   try {
-    // Extract data from the request body
     const { feeling, fullName, email, number, message } = req.body;
 
-    // Your email configuration (replace with your actual email and credentials)
+    //email configuration 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'huongnghiepchatgpt@gmail.com', // Email của bạn
-        pass: 'ggwy qaee okkf ipdu'
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
 
     // Email content
     const mailOptions = {
-      from: 'huongnghiepchatgpt@gmail.com', // Replace with your email
-      to: 'huongnghiepchatgpt@gmail.com', // Replace with the recipient email
+      from: process.env.GMAIL_USER, 
+      to: process.env.GMAIL_USER, 
       subject: 'Đánh giá từ người dùng',
       html: `
         <p>Feeling: ${feeling}</p>
@@ -102,11 +110,12 @@ app.post('/contact', async (req, res) => {
         <p>Message: ${message}</p>
       `,
     };
+    
 
     // Send email
     await transporter.sendMail(mailOptions);
 
-    // Respond to the client
+    // Respond 
     res.status(200).json({ success: true, message: 'Email sent successfully' });
   } catch (error) {
     console.error('Error handling contact form submission:', error);
@@ -136,5 +145,7 @@ app.get('/contact', (req, res) => {
 
 
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.listen(2007)
